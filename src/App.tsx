@@ -1,12 +1,18 @@
 import './App.css';
-import { PersonalInformation } from '../src/containers'
+import { Register, Login, Category } from '../src/containers'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 
 function App() {
   return (
-      <>
-        <PersonalInformation/>
-      </>
+    <Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/Register" element={<Register />} />
+      <Route path="/Category" element={<Category />} />
+    </Routes>
+  </Router>
   );
 }
 
