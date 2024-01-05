@@ -15,6 +15,29 @@ const CategoryPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token')
+
+  const CreateCategory = async (userData: Category) => {
+
+    const responseData = await fetch(
+      'https://mock-api.arikmpt.com/api/category/create', {
+        method : 'POST',
+        headers : {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + token
+        },
+        body : JSON.stringify(
+          {
+            "name" : userData.name
+          }
+        )          
+        }
+    );
+    
+    const data = await responseData.json()
+   
+  }
+
   const handleSaveCategory = (category: Category) => {
     const newCategory = { ...category, id: categories.length + 1 };
     setCategories([...categories, newCategory]);
