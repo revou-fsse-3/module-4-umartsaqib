@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Text, Button, Input } from '../../components';
@@ -10,12 +10,23 @@ interface Category {
   description: string;
 }
 
+interface CategoryListProps {
+  categories: Category[];
+  onSelect: (category: Category) => void;
+  onDelete: (category: Category) => void;
+}
+
 interface CategoryFormProps {
   onSave: (category: Category) => void;
   initialValues: Category | null;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({ onSave, initialValues }) => {
+
+  const token = localStorage.getItem('token')
+
+ 
+  
   const formik = useFormik({
     initialValues: initialValues || { id: 0, name: '', description: '' },
     validationSchema: yup.object({
@@ -29,6 +40,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ onSave, initialValues }) =>
   });
 
   return (
+  <>
     <form onSubmit={formik.handleSubmit}>
       <div className='my-3'>
         <Text>{'Name:'}</Text>
@@ -55,7 +67,8 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ onSave, initialValues }) =>
         )}
       </div>
       <Button label={'Save'} type={'submit'} className={'bg-red-500 my-3 px-4 py-2 rounded font-semibold'}/>
-    </form>
+    </form> 
+  </>
   );
 };
 
